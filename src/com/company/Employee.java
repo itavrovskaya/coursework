@@ -1,9 +1,11 @@
 package com.company;
 
+import java.util.Objects;
+
 public class Employee {
 
-    public static int id = 0;
-
+    public int id;
+    private static int counter = 0;
     private final String fullname;
     private int department;
     private int salary;
@@ -12,6 +14,7 @@ public class Employee {
         this.fullname = fullname;
         this.department = department;
         this.salary = salary;
+        this.id = counter++;
     }
 
 
@@ -24,7 +27,7 @@ public class Employee {
     public int getSalary() {
         return salary;}
 
-    public static int getId() {
+    public int getId() {
         return id;}
 
     public void setDepartment(int department) {
@@ -37,7 +40,19 @@ public class Employee {
 
 
     public String toString(){
-        return id++ + ": " + fullname + ", " + department + ", " + salary;}
+        return "id: " + id + " ФИО: " + fullname + ", отдел: " + department + ", зарплата: " + salary + ";";}
+
+
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Employee employee = (Employee) o;
+        return id == employee.id && department == employee.department && salary == employee.salary && Objects.equals(fullname, employee.fullname);
+    }
+
+    public int hashCode() {
+        return Objects.hash(id, fullname, department, salary);
+    }
 }
 
 
